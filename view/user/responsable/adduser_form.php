@@ -5,7 +5,7 @@ include(__DIR__."/../../header.php");
 
 <div class="center">
     <h1>Inscription</h1>
-    <form action="/projet/view/user/responsable/adduser.php" method="post">
+    <form action="/projet/controller/user/responsable/adduser.php" method="post">
                     <!--legend>Inscription</legend-->
         <table>
                     <tr>
@@ -25,11 +25,10 @@ include(__DIR__."/../../header.php");
                         <td><label for="inputRole" class="control-label">Role</label></td>
                         <td><select id="inputRole" name ="role" class="form-control">
                                 <option selected>Choix...</option>
-                                <option>Tuteur</option>
-                                <option>Responsable</option>
+                                <option>admin</option>
+                                <option>user</option>
                         </td>
                     </tr>
-                    
                     <tr>
                         <td><label for="inputMDP" class="control-label">MDP</label></td>
                             <td><input type="password" name="mdp" class="form-control" id="inputMDP" placeholder="Mot de passe" ></td>

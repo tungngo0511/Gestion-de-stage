@@ -1,48 +1,36 @@
 <?php
-require (__DIR__."/../../../public/libraries/db_config.php");
+require (__DIR__."/../../../model/user/responsable_model.php");
 session_start();
 $db= connect_db();
-//if(isset($_SESSION['login'])&& $_SESSION['role']=="admin"){
+if(isset($_SESSION['login'])&& $_SESSION['role']=="admin"){
   if(isset($_POST['add_user'])){
+    $error = "";
 
-
-$error = "";
-
-foreach (['nom', 'prenom', 'loginID', 'mdp', 'mdp2', 'role'] as $name) {
-    if (empty($_POST[$name])) {
-        $error .= "La valeur du champs '$name' ne doit pas être vide";
+    if ((empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['login']) || empty($_POST['mdp']) || empty ($_POST['mdp2'])) || empty($_POST['role'])) {
+            $error .= "Tous les champs nécessaires ne sont pas remplis ! ";
     } else {
-        $data[$name] = $_POST[$name];
+            $nom = $_POST['nom'];
+            $prenom = $_POST['prenom'];
+            $login = $_POST['login'];
+            $mdp = md5($_POST['mdp']);
+            $mdp2 = md5($_POST['mdp2']);
+            $role = $_POST['role'];
+            if (!checkLogin($login)){
+                $error .= "Login déjà utilisé ";
+            }
+            elseif ($mdp != $mdp2){
+                $error .="MDP ne correspondent pas ";
+            }
+            else{
+                addUser($nom, $prenom, $login, $mdp, $role);
+                echo "Done";
+            }
     }
-}
-
-
-// Vérification si l'utilisateur existe
-$SQL = "SELECT uid FROM users WHERE login=?";
-$stmt = $db->prepare($SQL);
-$res = $stmt->execute([$data['loginID']]);
-
-if ($res && $stmt->fetch()) {
-    $error .= "Login déjà utilisé";
-}
-
-else{
-    if($data['mdp'] != $data['mdp2']) {
-    $error .="MDP ne correspondent pas";
-}
-    else{
-        $SQL = "INSERT INTO users(nom,prenom,login,mdp,role) VALUES (:nom,:prenom,:loginID,:mdp,:role)";
-        $stmt= $db->prepare($SQL);
-        $res = $stmt->execute($data['nom'],$data['prenom'],$data['loginID'],$data['mdp'],$data['role']);
-        echo "Done";
+    if (!empty($error)) {
+        echo $error;
     }
-}
-if (!empty($error)) {
-    include('adduser_form.php');
-    exit();
-}
   }
-//}
+}
 
 
 
