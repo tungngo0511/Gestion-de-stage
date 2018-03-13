@@ -1,6 +1,7 @@
 <?php 
 $page_title="Ajouter une note"; 
 if (isset ($_POST['valider'])){
+	echo "vananh";
 if (empty($_POST['nom']) || empty($_POST['prenom']) ||
 	empty($_POST['email']) || empty($_POST['tel']) ||
 	empty($_POST['titre']) || empty($_POST['description']) ||
