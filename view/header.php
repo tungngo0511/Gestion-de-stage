@@ -9,6 +9,7 @@
 
 <title><?= $title ?></title>
 
+
     <style>
         .center { text-align: center }
         .center table {margin-left:auto; margin-right:auto;}

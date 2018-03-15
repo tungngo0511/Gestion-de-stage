@@ -27,6 +27,8 @@ if(isset($_POST['submit'])){
 
     if (!empty($error)){
         echo $error;
+        header("location: /project/view/user/login_form.php");
+        exit();
     }
 
 

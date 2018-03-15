@@ -1,5 +1,6 @@
 <?php 
 $page_title="Ajouter une note"; 
+echo "tung";
 if (isset ($_POST['valider'])){
 	echo "vananh";
 if (empty($_POST['nom']) || empty($_POST['prenom']) ||
@@ -18,7 +19,7 @@ else {
 	$tel = $_POST['tel'];
 
 
-	require("db_config.php"); 
+	require(__DIR__."/../public/libraries/db_config.php"); 
 	$db = connect_db();
 
 $req = $db->prepare('INSERT INTO etudiants (nom, prenom, email, tel) values (:nom, :prenom, :email, :tel)');

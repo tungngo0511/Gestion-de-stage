@@ -1,6 +1,6 @@
 
 
-<form  action = "formulaire_etu_action.php" methode = "POST" >
+<form  action = "/projet/model/formulaire_etu_action.php" method = "post" >
 	<p> NOM </p>
 	<input type="text" name="nom">
 	<p> Prénom </p>

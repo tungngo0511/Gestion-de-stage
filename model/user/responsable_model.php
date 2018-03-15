@@ -37,8 +37,15 @@ function addUser($nom,$prenom,$login,$mdp,$role){
     $db = connect_db();
    // $actif = 1;
     $SQL = "INSERT INTO users(nom,prenom,login,mdp,role,actif) VALUES (:nom,:prenom,:login,:mdp,:role,:actif)";
-        $stmt= $db->prepare($SQL);
-        $stmt->execute(array(':nom'=> $nom, ':prenom'=> $prenom, ':login'=> $login, ':mdp'=> $mdp, ':role'=> $role));
+    $stmt= $db->prepare($SQL);
+    $stmt->execute(array(':nom'=> $nom, ':prenom'=> $prenom, ':login'=> $login, ':mdp'=> $mdp, ':role'=> $role));
+}
+
+function changePw($uid,$mdp){
+    $db= connect_db();
+    $SQL="UPDATE user SET mdp= :mdp where uid= :uid";
+    $stmt= $db->prepare($SQL);
+    $stmt->execute(array(':mdp'=> $mdp, ':uid'=> $uid));
 }
     /**
      * Logout
