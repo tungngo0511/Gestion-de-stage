@@ -41,11 +41,38 @@ function addUser($nom,$prenom,$login,$mdp,$role){
     $stmt->execute(array(':nom'=> $nom, ':prenom'=> $prenom, ':login'=> $login, ':mdp'=> $mdp, ':role'=> $role));
 }
 
-function changePw($uid,$mdp){
+function changePw($login,$mdp){
     $db= connect_db();
-    $SQL="UPDATE user SET mdp= :mdp where uid= :uid";
+    $SQL="UPDATE users SET mdp= :mdp where login= :login";
     $stmt= $db->prepare($SQL);
-    $stmt->execute(array(':mdp'=> $mdp, ':uid'=> $uid));
+    $stmt->execute(array(':mdp'=> $mdp, ':login'=> $login));
+}
+
+function list_user(){
+    $db= connect_db();
+    $SQL="SELECT * FROM users";
+    $stmt = $db-> query($SQL);
+    $res = $stmt->fetchAll();
+    return $res;
+}
+
+function select_user($login){
+    $db = connect_db();
+    $SQL = "SELECT * FROM users WHERE login=:login";
+    $stmt = $db->prepare($SQL);
+    $stmt->execute(array(':login'=> $login));
+    $res = $stmt -> fetchAll();
+    return $res[0];
+}
+
+function list_stage(){
+    $db = connect_db();
+    $SQL = "SELECT titre, description, entreprise, tuteurE, emailTE, dateDebut, dateFin, users.nom AS nom_user, users.prenom AS prenom_user
+        FROM stages INNER JOIN users ON tuteurP= users.uid";
+    $stmt = $db-> query($SQL);
+    $res = $stmt->fetchAll();
+    return $res;
+        
 }
     /**
      * Logout
