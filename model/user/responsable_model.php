@@ -67,12 +67,23 @@ function select_user($login){
 
 function list_stage(){
     $db = connect_db();
-    $SQL = "SELECT titre, description, entreprise, tuteurE, emailTE, dateDebut, dateFin, users.nom AS nom_user, users.prenom AS prenom_user
+    $SQL = "SELECT sid, titre, description, entreprise, tuteurE, emailTE, dateDebut, dateFin, users.nom AS nom_user, users.prenom AS prenom_user
         FROM stages INNER JOIN users ON tuteurP= users.uid";
     $stmt = $db-> query($SQL);
     $res = $stmt->fetchAll();
     return $res;
         
+}
+
+function delete_stage($sid){
+    $db = connect_db();
+    $SQL = "DELETE FROM stages WHERE sid =:sid";
+    $stmt = $db->prepare($SQL);
+    $stmt->execute(array(':sid'=> $sid));
+    if ($stmt) {
+   echo "Suppression complète ...";
+   echo $sid;
+  }
 }
     /**
      * Logout

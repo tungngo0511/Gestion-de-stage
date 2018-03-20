@@ -7,7 +7,8 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<?php
+<script src="/projet/public/js/bootbox.min.js"></script>
+    <?php
 $title="Table of stages";
 include(__DIR__."/../../header.php");
 ?>
@@ -33,7 +34,7 @@ include(__DIR__."/../../header.php");
                     <th>Tuteur Pédagogique</th>
                     <th>Date Début</th>
                     <th>Date Fin</th>
-                    <th>Action</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>                           
@@ -54,7 +55,8 @@ include(__DIR__."/../../header.php");
                                         data-toggle="tooltip" title="Delete">
                                         <button class="btn btn-danger btn-xs deletebtn"
                                                 data-title="Delete" data-toggle="modal"
-                                                data-target="#deletemodal">
+                                                data-target="#deletemodal"
+                                                data-id="'.$row['sid'].' ">
                                                 <span class="glyphicon glyphicon-trash"></span>
                                         </button>
                                         </p></td>';
@@ -96,12 +98,38 @@ include(__DIR__."/../../header.php");
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$("#confirmdeletebtn").click(function() {
-				alert("in delete btn");
-				$(this).closest('tr').remove();
+  
+                    $('#deletemodal').on('shown.bs.modal', function(e) {
+                        var button = $(event.relatedTarget) // Button that triggered the modal
+                         var recipient = $(this).attr('data-id'); // Extract info from data-* attributes
+                      // store the clicked element as data on the confirm button
+                      $('#confirmdeletebtn').data('triggered-from', recipient);
+                    });
 
-			});
-		});
+                    $("#confirmdeletebtn").click(function() {
+                      // retrieve the button that triggered the action and use it
+                      var trigger = $(this).data('triggered-from');
+             //       var dataString = 'login=' + trigger;
+                      $.ajax({        
+                        type: 'POST',
+                        url: 'delete_stage.php',
+                        data: 'delete='+trigger
+
+                     })
+                     .done(function(response){        
+                        bootbox.alert(response);
+                    //    parent.fadeOut('slow');
+
+                       })
+                       .fail(function(){
+
+                        bootbox.alert('Something Went Wrog ....');
+
+                       })
+                      $('#deletemodal').modal('hide');
+                    });
+
+                  });
 	</script>
 </body>
 

@@ -35,20 +35,7 @@ include(__DIR__."/../../header.php");
                     <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>        
-                    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <h4 class="modal-title" id="memberModalLabel">Edit Member Detail</h4>
-                            </div>
-                            <div class="dash">
-                             <!-- Content goes in here -->
-                            </div>
-                        </div>
-                    </div>
-                    </div>
+                <tbody>                           
                             <?php
                                require (__DIR__."/../../../model/user/responsable_model.php");
                                 $mem = list_user();
@@ -72,7 +59,20 @@ include(__DIR__."/../../header.php");
                                 /* free result set */
                                 $mem = null;
                             ?>                       
-                    </tr
+                    
+                    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="memberModalLabel">Edit Member Detail</h4>
+                            </div>
+                            <div class="dash">
+                             <!-- Content goes in here -->
+                            </div>
+                        </div>
+                    </div>
+                    </div>
                 </tbody>
             </table>
         </div>
