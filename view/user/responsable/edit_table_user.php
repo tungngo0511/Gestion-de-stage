@@ -46,8 +46,8 @@
 		</div>
 		</div>
 		<div class="modal-footer">
-		     <input type="submit" class="btn btn-primary" name="update" value="Update" />&nbsp;
-		     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		     <input type="submit" class="btn btn-primary" name="update" value="Mettre à jour" />&nbsp;
+		     <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
 		</div>
 	</form>
 </body>

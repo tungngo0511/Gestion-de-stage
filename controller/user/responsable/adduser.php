@@ -3,8 +3,8 @@
     require (__DIR__."/../../../model/user/responsable_model.php");
     session_start();
     $db= connect_db();
-    if(isset($_SESSION['login'])&& $_SESSION['role']=="admin"){
-      if(isset($_POST['add_user'])){
+ //   if(isset($_SESSION['login'])&& $_SESSION['role']=="admin"){
+      if(isset($_POST['addUser'])){
         $error = "";
 
         if ((empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['login']) || empty($_POST['mdp']) || empty ($_POST['mdp2'])) || empty($_POST['role'])) {
@@ -31,7 +31,7 @@
             echo $error;
         }
       }
-    }
+ //   }
 
 
 

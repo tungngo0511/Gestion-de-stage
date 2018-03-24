@@ -1,12 +1,12 @@
    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="/projet/public/css/bootstrap.min.css" >
 
 <!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="/projet/public/css/bootstrap-theme.min.css" >
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="/projet/public/js/jquery.js"></script>
+<script src="/projet/public/js/bootstrap.min.js" ></script>
 <?php
 $title="Table of users";
 include(__DIR__."/../../header.php");
@@ -15,12 +15,12 @@ include(__DIR__."/../../header.php");
 <body>
 <div class="row well">
  <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#addUserModal"><i class="glyphicon glyphicon-plus">
- </i> Ajouter User</button>
+ </i> Ajouter soutenance</button>
 </div>
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Members Details</h1>
+            <h1 class="page-header">Soutenance Details</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -29,50 +29,54 @@ include(__DIR__."/../../header.php");
             <table class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Login</th>
-                    <th>Mot de pass</th>
-                    <th>Role</th>
-                    <th>Actif</th>
-                    <th>Action</th>
+                    <th>Soutenance ID</th>
+                    <th>Stage ID</th>
+                    <th>Tuteur Principal</th>
+                    <th>Tuteur Secondaire</th>
+                    <th>Date</th>
+                    <th>Salle</th>                   
+                    <th>Edit</th>
+                    <th>Supprimer</th>
                 </tr>
                 </thead>
                 <tbody>                           
                             <?php
                                require (__DIR__."/../../../model/user/responsable_model.php");
-                                $mem = list_user();
-                                foreach ($mem as $row){
+                                $stn = list_stn();
+                                foreach ($stn as $row){
                                     echo '<tr>';
-                                    echo '<td>'.$row['uid'].'</td>';
-                                    echo '<td>'.$row['nom'].'</td>';
-                                    echo '<td>'.$row['prenom'].'</td>';
-                                    echo '<td>'.$row['login'].'</td>';
-                                    echo '<td>'.$row['mdp'].'</td>';
-                                    echo '<td>'.$row['role'].'</td>';
-                                    echo '<td>'.$row['actif'].'</td>';
+                                    echo '<td>'.$row['stid'].'</td>';
+                                    echo '<td>'.$row['titre'].'</td>';
+                                    echo '<td>'.$row['nom_us1'].' '.$row['prenom_us1'].'</td>';
+                                    echo '<td>'.$row['nom_us2'].' '.$row['prenom_us2'].'</td>';                                   
+                                    echo '<td>'.$row['date'].'</td>';
+                                    echo '<td>'.$row['salle'].'</td>';                                     
                                     echo '<td>
                                         <a class="btn btn-small btn-primary"
                                            data-toggle="modal"
                                            data-target="#Modal"
-                                           data-whatever="'.$row['login'].' ">Changer Mdp</a>
+                                           data-whatever="'.$row['stid'].' ">Edit</a>
+                                     </td>';
+                                    echo '<td> 
+                                        <a class="delete_stn" data-id="'.$row['stid'].'" href="javascript:void(0)">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </a>
                                      </td>';
                                     echo '</tr>';
                                 }                                                             
                                 /* free result set */
                                 $mem = null;
-                            ?>                       
+                            ?>   
                     
-                    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="Add User" aria-hidden="true">
+                    <div class="modal fade" id="addStnModal" tabindex="-1" role="dialog" aria-labelledby="Ajout Soutenance" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                 <h4 class="modal-title" id="memberModalLabel">Add User</h4>
                             </div>                  
-                    <div class="addUser">
-                         <form action="/projet/controller/user/responsable/adduser.php" method="post">   
+                    <div class="addStn">
+                         <form action="/projet/controller/user/responsable/add_soutencance.php" method="post">   
                         <div class="modal-body">
                                 <div class="form-group">
                                     <label for="login">Login</label>
@@ -118,7 +122,7 @@ include(__DIR__."/../../header.php");
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <h4 class="modal-title" id="memberModalLabel">Edit Form</h4>
+                                <h4 class="modal-title" id="memberModalLabel">Edit Soutenance Detail</h4>
                             </div>
                             <div class="dash">
                              <!-- Content goes in here -->
@@ -136,11 +140,11 @@ include(__DIR__."/../../header.php");
           var button = $(event.relatedTarget) // Button that triggered the modal
           var recipient = button.data('whatever') // Extract info from data-* attributes
           var modal = $(this);
-          var dataString = 'login=' + recipient;
+          var dataString = 'stid=' + recipient;
  
             $.ajax({
                 type: "GET",
-                url: "edit_table_user.php",
+                url: "edit_table_stn.php",
                 data: dataString,
                 cache: false,
                 success: function (data) {
