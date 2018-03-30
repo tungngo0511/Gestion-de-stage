@@ -88,11 +88,11 @@ function delete_stage($sid){
 
 function list_stn(){
     $db = connect_db();
-    $SQL = "SELECT stid, titre, us1.nom AS nom_us1, us1.prenom AS prenom_us1, us2.nom AS nom_us2, us2.prenom AS prenom_us2, date, salle
+    $SQL = "SELECT sou.stid, sou.sid, us1.nom AS nom_us1, us1.prenom AS prenom_us1, us2.nom AS nom_us2, us2.prenom AS prenom_us2, date, salle
           FROM users us1 
           INNER JOIN soutenances sou ON us1.uid = sou.tuteur1
           INNER JOIN users us2 ON us2.uid = sou.tuteur2
-          INNER JOIN stages ON stages.sid = soutenances.sid";
+          INNER JOIN stages ON stages.sid = sou.sid";
     $stmt = $db-> query($SQL);
     $res = $stmt->fetchAll();
     return $res;      
@@ -124,8 +124,16 @@ function addStn(){
 // Select all sid of stages not including in soutenances
 function check_sid(){
     $db = connect_db();
-    $SQL = "SELECT * FROM stages WHERE stages.sid NOT IN 
+    $SQL = "SELECT stages.sid FROM stages WHERE stages.sid NOT IN 
              (SELECT soutenances.sid FROM soutenances)";
+    $stmt = $db-> query($SQL);
+    $res = $stmt->fetchAll();
+    return $res;
+}
+
+function select_tuteur(){
+    $db= connect_db();
+    $SQL="SELECT * FROM users WHERE role = 'user' AND actif ='1' ";
     $stmt = $db-> query($SQL);
     $res = $stmt->fetchAll();
     return $res;

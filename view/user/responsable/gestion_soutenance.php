@@ -14,7 +14,7 @@ include(__DIR__."/../../header.php");
  
 <body>
 <div class="row well">
- <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#addUserModal"><i class="glyphicon glyphicon-plus">
+ <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#addStnModal"><i class="glyphicon glyphicon-plus">
  </i> Ajouter soutenance</button>
 </div>
 <div class="container">
@@ -46,7 +46,7 @@ include(__DIR__."/../../header.php");
                                 foreach ($stn as $row){
                                     echo '<tr>';
                                     echo '<td>'.$row['stid'].'</td>';
-                                    echo '<td>'.$row['titre'].'</td>';
+                                    echo '<td>'.$row['sid'].'</td>';
                                     echo '<td>'.$row['nom_us1'].' '.$row['prenom_us1'].'</td>';
                                     echo '<td>'.$row['nom_us2'].' '.$row['prenom_us2'].'</td>';                                   
                                     echo '<td>'.$row['date'].'</td>';
@@ -73,45 +73,81 @@ include(__DIR__."/../../header.php");
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <h4 class="modal-title" id="memberModalLabel">Add User</h4>
+                                <h4 class="modal-title" id="memberModalLabel">Ajout Soutenance</h4>
                             </div>                  
                     <div class="addStn">
                          <form action="/projet/controller/user/responsable/add_soutencance.php" method="post">   
                         <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="login">Login</label>
-                                    <input type="text" class="form-control" id="login" name="login"/>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <label class="input-group-text" for="sid">Stage ID</label>
+                                </div>
+                                <select class="custom-select" id="sid">
+                                  <option selected>Choose...</option>
+                                  <?php
+                            //        require (__DIR__."/../../../model/user/responsable_model.php");
+                                     $sid_to_add = check_sid();
+                                     foreach ($sid_to_add as $row1){
+                                        echo '<option value="'.$row1['sid'].'">'.$row1['sid'].'</option>';
+                                     }
+                                  ?>                                 
+                                </select>
+                          </div>
+                          <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <label class="input-group-text" for="tuteur1">Tuteur 1</label>
+                                </div>
+                                <select class="custom-select" id="tuteur1">
+                                  <option selected>Choose...</option>
+                                  <?php
+                            //        require (__DIR__."/../../../model/user/responsable_model.php");
+                                     $tuteur1 = select_tuteur();
+                                     foreach ($tuteur1 as $row2){
+                                        echo '<option value="'.$row2['uid'].'">'.$row2['nom'].' '.$row2['prenom'].'</option>';
+                                     }
+                                  ?>                                 
+                                </select>
+                          </div>
+                          <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <label class="input-group-text" for="tuteur2">Tuteur 2</label>
+                                </div>
+                                <select class="custom-select" id="tuteur2">
+                                  <option selected>Choose...</option>
+                                  <?php
+                          //          require (__DIR__."/../../../model/user/responsable_model.php");
+                                     $tuteur2 = select_tuteur();
+                                     foreach ($tuteur2 as $row3){
+                                        echo '<option value="'.$row3['uid'].'">'.$row3['nom'].' '.$row3['prenom'].'</option>';
+                                     }
+                                  ?>                                 
+                                </select>
+                          </div>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class='col-sm-6'>
+                                            <div class="form-group">
+                                                <label for="date">Date</label>
+                                                <div class='input-group date' id='date' name="date">
+                                                    <input type='text' class="form-control" />
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <script type="text/javascript">
+                                            $(function () {
+                                                $('#datetimepicker1').datetimepicker();
+                                            });
+                                        </script>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="nom">Nom</label>
-                                    <input type="text" class="form-control" id="nom" name="nom"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="prenom">Prénom</label>
-                                    <input type="text" class="form-control" id="prenom" name="prenom"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="mdp">Mot de passe</label>
-                                    <input type="text" class="form-control" id="mdp" name="mdp" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="mdp2">Répéter Mot de passe</label>
-                                    <input type="text" class="form-control" id="mdp2" name="mdp2" />
-                                </div>
-                                <div class="form-group">
-                                     <label for="role">Role</label>
-                                     <select id="inputRole" name ="role" class="form-control">
-                                    <option selected>Choix...</option>
-                                    <option>admin</option>
-                                    <option>user</option>
-                                </div>
-                                
-                                <div class="modal-footer">
-                                     <input type="submit" class="btn btn-primary" name="addUser" value="Ajouter User" />&nbsp;
-                                     <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                                </div>
-                            </div>
-                         </form>
+                                    <label for="salle">Salle</label>
+                                    <input type="text" class="form-control" id="salle" name="salle" />
+                                </div>                               
+                                </form>
                      </div>
                     </div>
                     </div>
