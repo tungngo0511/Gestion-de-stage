@@ -72,42 +72,41 @@ include(__DIR__."/../../header.php");
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <h4 class="modal-title" id="memberModalLabel">Add User</h4>
+                                <button type="button" class="close" data-dismiss=""><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="stnModalLabel">Ajout Soutenance</h4>
                             </div>                  
                     <div class="addStn">
                          <form action="/projet/controller/user/responsable/add_soutencance.php" method="post">   
                         <div class="modal-body">
+                               <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                            </div>
+                            <select class="custom-select" id="inputGroupSelect01">
+                              <option selected>Choose...</option>
+                              <option value="1">One</option>
+                              <option value="2">Two</option>
+                              <option value="3">Three</option>
+                            </select>
+                          </div>
                                 <div class="form-group">
-                                    <label for="login">Login</label>
-                                    <input type="text" class="form-control" id="login" name="login"/>
+                                    <label for="tuteur1">Tuteur 1</label>
+                                    <input type="text" class="form-control" id="tuteur1" name="tuteur1"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="nom">Nom</label>
-                                    <input type="text" class="form-control" id="nom" name="nom"/>
+                                    <label for="tuteur2">Tuteur 2</label>
+                                    <input type="text" class="form-control" id="tuteur2" name="tuteur2"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="prenom">Prénom</label>
-                                    <input type="text" class="form-control" id="prenom" name="prenom"/>
+                                    <label for="date">Date</label>
+                                    <input type="text" class="form-control" id="date" name="date" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="mdp">Mot de passe</label>
-                                    <input type="text" class="form-control" id="mdp" name="mdp" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="mdp2">Répéter Mot de passe</label>
-                                    <input type="text" class="form-control" id="mdp2" name="mdp2" />
-                                </div>
-                                <div class="form-group">
-                                     <label for="role">Role</label>
-                                     <select id="inputRole" name ="role" class="form-control">
-                                    <option selected>Choix...</option>
-                                    <option>admin</option>
-                                    <option>user</option>
-                                </div>
-                                
+                                    <label for="salle">Salle</label>
+                                    <input type="text" class="form-control" id="salle" name="salle" />
+                                </div>                                                              
                                 <div class="modal-footer">
-                                     <input type="submit" class="btn btn-primary" name="addUser" value="Ajouter User" />&nbsp;
+                                     <input type="submit" class="btn btn-primary" name="addSou" value="Ajout Soutenance" />&nbsp;
                                      <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
                                 </div>
                             </div>
