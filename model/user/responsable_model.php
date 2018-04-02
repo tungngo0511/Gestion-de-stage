@@ -56,11 +56,28 @@ function list_user(){
     return $res;
 }
 
+function list_GA(){
+    $db= connect_db();
+    $SQL="SELECT * FROM gestionnaires";
+    $stmt = $db-> query($SQL);
+    $res = $stmt->fetchAll();
+    return $res;
+}
+
 function select_user($login){
     $db = connect_db();
     $SQL = "SELECT * FROM users WHERE login=:login";
     $stmt = $db->prepare($SQL);
     $stmt->execute(array(':login'=> $login));
+    $res = $stmt -> fetchAll();
+    return $res[0];
+}
+
+function get_tuteur($uid){
+    $db = connect_db();
+    $SQL = "SELECT * FROM users WHERE uid=:uid";
+    $stmt = $db->prepare($SQL);
+    $stmt->execute(array(':uid'=> $uid));
     $res = $stmt -> fetchAll();
     return $res[0];
 }
@@ -82,54 +99,88 @@ function delete_stage($sid){
     $stmt->execute(array(':sid'=> $sid));
     if ($stmt) {
    echo "Suppression complète ...";
- //  echo $sid;
+  }
+}
+
+function delete_stn($stid){
+    $db = connect_db();
+    $SQL = "DELETE FROM soutenances WHERE stid =:stid";
+    $stmt = $db->prepare($SQL);
+    $stmt->execute(array(':stid'=> $stid));
+    if ($stmt) {
+   echo "Suppression complète ...";
   }
 }
 
 function list_stn(){
     $db = connect_db();
-    $SQL = "SELECT stid, titre, us1.nom AS nom_us1, us1.prenom AS prenom_us1, us2.nom AS nom_us2, us2.prenom AS prenom_us2, date, salle
+    $SQL = "SELECT sou.stid, sou.sid, us1.nom AS nom_us1, us1.prenom AS prenom_us1, us2.nom AS nom_us2, us2.prenom AS prenom_us2, date, salle
           FROM users us1 
           INNER JOIN soutenances sou ON us1.uid = sou.tuteur1
           INNER JOIN users us2 ON us2.uid = sou.tuteur2
-          INNER JOIN stages ON stages.sid = soutenances.sid";
+          INNER JOIN stages ON stages.sid = sou.sid";
     $stmt = $db-> query($SQL);
     $res = $stmt->fetchAll();
     return $res;      
 }
 
-function editStn($stid,$nom_us1,$prenom_us1,$nom_us2,$prenom_us2,$date,$salle){
+function editStn($stid,$tuteur1,$tuteur2,$date,$salle){
     $db= connect_db();
-    $SQL="UPDATE  SET 
-                                (SELECT uid FROM users WHERE nom =:nom_us1;";
+    $SQL="UPDATE soutenances SET tuteur1=:tuteur1, tuteur2=:tuteur2, date=:date, salle=:salle where stid= :stid";
     $stmt= $db->prepare($SQL);
-    $stmt->execute(array(':mdp'=> $mdp, ':login'=> $login));
+    $stmt->execute(array(':tuteur1'=> $tuteur1, ':tuteur2'=> $tuteur2,':date'=> $date, ':salle'=> $salle,':stid'=> $stid));
 }
 
-function addStn(){
+function editStage($sid, $titre, $description, $entreprise, $tuteurE, $emailTE, $tuteurP){
+    $db= connect_db();
+    $SQL="UPDATE stages SET titre=:titre, description=:description, entreprise=:entreprise, tuteurE=:tuteurE, emailTE=:emailTE, tuteurP=:tuteurP where sid= :sid";
+    $stmt= $db->prepare($SQL);
+    $stmt->execute(array(':titre'=> $titre, ':description'=> $description,':entreprise'=> $entreprise, ':tuteurE'=> $tuteurE,':emailTE'=> $emailTE, ':tuteurP'=> $tuteurP, ':sid'=>$sid));
+}
+function addStn($sid,$tuteur1,$tuteur2,$date,$salle){
     $db = connect_db();
-    $SQL1 = "SELECT stages.sid,stages.tuteurP FROM stages WHERE stages.sid NOT IN 
-             (SELECT soutenances.sid FROM soutenances)";
-    $stmt1 = $db-> query($SQL1);
-    foreach ($stmt1 as $row){
-        $stages_sid = $row['sid'];
-        $stages_tuteurP= $row['tuteurP'];
-        
-    }
-    
-    echo $stages_sid;
-    echo $stages_tuteurP;
+    $SQL = "INSERT INTO soutenances(sid,tuteur1,tuteur2,date,salle) VALUES (:sid,:tuteur1,:tuteur2,:date,:salle)";
+    $stmt= $db->prepare($SQL);
+    $stmt->execute(array(':sid'=> $sid, ':tuteur1'=> $tuteur1, ':tuteur2'=> $tuteur2, ':date'=> $date, ':salle'=> $salle));
 }
 
 // Select all sid of stages not including in soutenances
 function check_sid(){
     $db = connect_db();
-    $SQL = "SELECT * FROM stages WHERE stages.sid NOT IN 
+    $SQL = "SELECT stages.sid FROM stages WHERE stages.sid NOT IN 
              (SELECT soutenances.sid FROM soutenances)";
     $stmt = $db-> query($SQL);
     $res = $stmt->fetchAll();
     return $res;
 }
+
+function select_tuteur(){
+    $db= connect_db();
+    $SQL="SELECT * FROM users WHERE role = 'user' AND actif ='1' ";
+    $stmt = $db-> query($SQL);
+    $res = $stmt->fetchAll();
+    return $res;
+}
+
+function get_stage($sid){
+    $db= connect_db();
+    $SQL="SELECT * FROM stages WHERE sid =:sid";
+    $stmt = $db->prepare($SQL);
+    $stmt->execute(array(':sid'=> $sid));
+    $res = $stmt->fetchAll();
+    return $res[0];
+}
+
+function select_stn($stid){
+    $db = connect_db();
+    $SQL = "SELECT * FROM soutenances WHERE stid=:stid";
+    $stmt = $db->prepare($SQL);
+    $stmt->execute(array(':stid'=> $stid));
+    $res = $stmt -> fetchAll();
+    return $res[0];
+}
+
+
     /**
      * Logout
 

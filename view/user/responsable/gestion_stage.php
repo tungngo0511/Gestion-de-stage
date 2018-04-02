@@ -34,7 +34,8 @@ include(__DIR__."/../../header.php");
                     <th>Tuteur Pédagogique</th>
                     <th>Date Début</th>
                     <th>Date Fin</th>
-                    <th>Delete</th>
+                    <th>Editer</th>
+                    <th>Supprimer</th>
                 </tr>
                 </thead>
                 <tbody>                           
@@ -51,6 +52,12 @@ include(__DIR__."/../../header.php");
                                     echo '<td>'.$row['nom_user'].' '.$row['prenom_user'].'</td>';
                                     echo '<td>'.$row['dateDebut'].'</td>';
                                     echo '<td>'.$row['dateFin'].'</td>';
+                                    echo '<td>
+                                        <a class="btn btn-small btn-primary"
+                                           data-toggle="modal"
+                                           data-target="#Modal"
+                                           data-whatever="'.$row['sid'].' ">Editer</a>
+                                     </td>';
                                     echo '<td> 
                                         <a class="delete_stage" data-id="'.$row['sid'].'" href="javascript:void(0)">
                                             <i class="glyphicon glyphicon-trash"></i>
@@ -61,10 +68,45 @@ include(__DIR__."/../../header.php");
                                 /* free result set */
                                 $mem = null;
                             ?>
+            <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="StageModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+                        <h4 class="modal-title" id="StageModalLabel">Edit Stage Detail</h4>
+                    </div>
+                    <div class="dash">
+                     <!-- Content goes in here -->
+                    </div>
+                </div>
+            </div>
+            </div>
                 </tbody>
             </table>
         </div>
     </div>
+<script>
+    $('#Modal').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) // Button that triggered the modal
+          var recipient = button.data('whatever') // Extract info from data-* attributes
+          var modal = $(this);
+          var dataString = 'sid=' + recipient;
+ 
+            $.ajax({
+                type: "GET",
+                url: "edit_table_stage.php",
+                data: dataString,
+                cache: false,
+                success: function (data) {
+                    console.log(data);
+                    modal.find('.dash').html(data);
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            });  
+    })
+</script>
 <script>
         $(document).ready(function(){
 

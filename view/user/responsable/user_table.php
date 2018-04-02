@@ -96,10 +96,11 @@ include(__DIR__."/../../header.php");
                                 </div>
                                 <div class="form-group">
                                      <label for="role">Role</label>
-                                     <select id="inputRole" name ="role" class="form-control">
+                                     <select id="role" name ="role" class="form-control">
                                     <option selected>Choix...</option>
                                     <option>admin</option>
                                     <option>user</option>
+                                     </select>
                                 </div>
                                 
                                 <div class="modal-footer">
