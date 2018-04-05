@@ -17,7 +17,7 @@ include(__DIR__."/../../header.php");
  
 <body>
 <div class="row well">
- <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#addStnModal"><i class="glyphicon glyphicon-plus">
+ <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#addGAModal"><i class="glyphicon glyphicon-plus">
  </i> Ajouter </button>
 </div>
 <div class="container">
@@ -53,10 +53,9 @@ include(__DIR__."/../../header.php");
                                     echo '<td>'.$row['email'].'</td>';
                                     echo '<td>'.$row['token'].'</td>';                                     
                                     echo '<td>
-                                        <a class="btn btn-small btn-primary"
-                                           data-toggle="modal"
-                                           data-target="#Modal"
-                                           data-whatever="'.$row['gid'].' ">Régénérer token</a>
+                                        <a class="Token" data-id="'.$row['gid'].'" href="javascript:void(0)">
+                                            <i class="glyphicon glyphicon-refresh"></i>
+                                        </a>
                                      </td>';
                                     echo '<td> 
                                         <a class="delete_GA" data-id="'.$row['gid'].'" href="javascript:void(0)">
@@ -78,10 +77,6 @@ include(__DIR__."/../../header.php");
                     <div class="addGA">
                          <form action="/projet/controller/user/responsable/add_GA.php" method="post">   
                         <div class="modal-body">                       
-                            <div class="form-group">
-                                <label for="gid">ID</label>
-                                <input type="text" class="form-control" id="gid" name="gid" />
-                            </div> 
                             <div class="form-group">
                                 <label for="nom">Nom</label>
                                 <input type="text" class="form-control" id="nom" name="nom" />
@@ -116,7 +111,7 @@ include(__DIR__."/../../header.php");
 
           e.preventDefault();
 
-          var stid = $(this).attr('data-id');
+          var gid = $(this).attr('data-id');
           var parent = $(this).parent("td").parent("tr");
 
           bootbox.dialog({
@@ -164,7 +159,63 @@ include(__DIR__."/../../header.php");
          });
 
         });
-</script>           
+</script>   
+<script>
+        $(document).ready(function(){
+
+         $('.Token').click(function(e){
+
+          e.preventDefault();
+
+          var gid = $(this).attr('data-id');
+          var parent = $(this).parent("td").parent("tr");
+
+          bootbox.dialog({
+            message: "Regénérer le Token ?",
+            title: "<i class='glyphicon glyphicon-refresh'></i> Regénerer token !",
+            buttons: {
+           danger: {
+             label: "Non",
+             className: "btn-danger",
+             callback: function() {
+             $('.bootbox').modal('hide');
+             }
+           },
+           sucess: {
+             label: "Oui",
+             className: "btn-success",
+             callback: function() {
+
+
+              $.ajax({
+
+               type: 'POST',
+               url: '/projet/controller/user/responsable/regenerer_token.php',
+               data: 'token='+gid
+
+              })
+              .done(function(response){
+
+               bootbox.alert(response);
+               parent.fadeOut('slow');
+
+              })
+              .fail(function(){
+
+               bootbox.alert('Regénération échoue ....');
+
+              })
+
+             }
+           }
+            }
+          });
+
+
+         });
+
+        });
+</script>  
 </body>
 
 <?php

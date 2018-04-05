@@ -48,6 +48,14 @@ function changePw($login,$mdp){
     $stmt->execute(array(':mdp'=> $mdp, ':login'=> $login));
 }
 
+function update_token($gid,$token){
+    $db= connect_db();
+    $SQL="UPDATE gestionnaires SET token= :token where gid= :gid";
+    $stmt= $db->prepare($SQL);
+    $stmt->execute(array(':token'=> $token, ':gid'=> $gid));
+}
+        
+
 function list_user(){
     $db= connect_db();
     $SQL="SELECT * FROM users";
@@ -102,6 +110,16 @@ function delete_stage($sid){
   }
 }
 
+function delete_GA($gid){
+    $db = connect_db();
+    $SQL = "DELETE FROM gestionnaires WHERE gid =:gid";
+    $stmt = $db->prepare($SQL);
+    $stmt->execute(array(':gid'=> $gid));
+    if ($stmt) {
+   echo "Suppression complète ...";
+  }
+}
+
 function delete_stn($stid){
     $db = connect_db();
     $SQL = "DELETE FROM soutenances WHERE stid =:stid";
@@ -144,6 +162,12 @@ function addStn($sid,$tuteur1,$tuteur2,$date,$salle){
     $stmt->execute(array(':sid'=> $sid, ':tuteur1'=> $tuteur1, ':tuteur2'=> $tuteur2, ':date'=> $date, ':salle'=> $salle));
 }
 
+function addGA($nom, $prenom, $email, $token){
+    $db = connect_db();
+    $SQL = "INSERT INTO gestionnaires(nom,prenom,email,token) VALUES (:nom,:prenom,:email,:token)";
+    $stmt= $db->prepare($SQL);
+    $stmt->execute(array(':nom'=> $nom, ':prenom'=> $prenom, ':email'=> $email, ':token'=> $token));
+}
 // Select all sid of stages not including in soutenances
 function check_sid(){
     $db = connect_db();
