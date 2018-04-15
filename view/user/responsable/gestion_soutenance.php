@@ -1,14 +1,12 @@
-   <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" type="text/css" href="/projet/public/css/bootstrap.min.css" >
+ <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 <!-- Optional theme -->
-<link rel="stylesheet" type="text/css" href="/projet/public/css/bootstrap-theme.min.css" >
-<link rel="stylesheet" type="text/css" href="/projet/public/css/bootstrap-datetimepicker.min.css" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
 <!-- Latest compiled and minified JavaScript -->
-<script src="/projet/public/js/jquery.js"></script>
-<script src="/projet/public/js/bootstrap.min.js" ></script>
-<script type="text/javascript" src="/projet/public/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="/projet/public/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="/projet/public/js/bootbox.min.js"></script>
 <?php
 $title="Table of users";
@@ -23,7 +21,7 @@ include(__DIR__."/../../header.php");
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Soutenance Details</h1>
+            <h1 class="page-header">Soutenance Détails</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>

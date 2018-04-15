@@ -20,7 +20,7 @@ include(__DIR__."/../../header.php");
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Members Details</h1>
+            <h1 class="page-header">Information des users</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -33,7 +33,7 @@ include(__DIR__."/../../header.php");
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Login</th>
-                    <th>Mot de pass</th>
+                    <th>Mot de passe</th>
                     <th>Role</th>
                     <th>Actif</th>
                     <th>Action</th>
@@ -88,11 +88,11 @@ include(__DIR__."/../../header.php");
                                 </div>
                                 <div class="form-group">
                                     <label for="mdp">Mot de passe</label>
-                                    <input type="text" class="form-control" id="mdp" name="mdp" />
+                                    <input type="password" class="form-control" id="mdp" name="mdp" />
                                 </div>
                                 <div class="form-group">
                                     <label for="mdp2">Répéter Mot de passe</label>
-                                    <input type="text" class="form-control" id="mdp2" name="mdp2" />
+                                    <input type="password" class="form-control" id="mdp2" name="mdp2" />
                                 </div>
                                 <div class="form-group">
                                      <label for="role">Role</label>

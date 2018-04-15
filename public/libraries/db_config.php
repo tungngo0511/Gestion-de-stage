@@ -21,3 +21,7 @@ function connect_db(){
     }
 }
 
+function disconnect_db($connection){
+    $connection = null;
+}
+

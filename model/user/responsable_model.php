@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-require (__DIR__."/../../public/libraries/db_config.php");
+include_once (__DIR__."/../../public/libraries/db_config.php");
 
  function checkUser($login, $password) {
     $db = connect_db();
@@ -97,7 +97,6 @@ function list_stage(){
     $stmt = $db-> query($SQL);
     $res = $stmt->fetchAll();
     return $res;
-        
 }
 
 function delete_stage($sid){
@@ -139,7 +138,7 @@ function list_stn(){
           INNER JOIN stages ON stages.sid = sou.sid";
     $stmt = $db-> query($SQL);
     $res = $stmt->fetchAll();
-    return $res;      
+    return $res; 
 }
 
 function editStn($stid,$tuteur1,$tuteur2,$date,$salle){
@@ -203,8 +202,69 @@ function select_stn($stid){
     $res = $stmt -> fetchAll();
     return $res[0];
 }
-
-
+function select_stn_tuteur1($tuteur1){
+    $db = connect_db();
+    $SQL = "SELECT * FROM soutenances WHERE tuteur1=:tuteur1";
+    $stmt = $db->prepare($SQL);
+    $stmt->execute(array(':tuteur1'=> $tuteur1));
+    $res = $stmt -> fetchAll();
+    return $res;
+}
+function select_stn_tuteur2($tuteur2){
+    $db = connect_db();
+    $SQL = "SELECT * FROM soutenances WHERE tuteur2=:tuteur2";
+    $stmt = $db->prepare($SQL);
+    $stmt->execute(array(':tuteur2'=> $tuteur2));
+    $res = $stmt -> fetchAll();
+    return $res;
+}
+// Modèle de Tuteur
+function etudiant_tuteurP($id_tuteurP) {
+    $db = connect_db();
+    $SQL = "SELECT etudiants.eid, stages.sid, nom, prenom, titre, commentaire, note FROM etudiants INNER JOIN stages ON etudiants.eid = stages.eid INNER JOIN notes ON stages.sid = notes.sid WHERE stages.tuteurP =:tuteurP";
+    $stmt = $db->prepare($SQL);
+    $stmt->execute(array(':tuteurP'=> $id_tuteurP));
+    $res = $stmt -> fetchAll();
+    return $res;
+}
+//Récupérer infos pour editer table etudiant per tuteur
+function getinfo_etututeur($sid){
+    $db = connect_db();
+    $SQL = "SELECT stages.sid,nom, prenom, titre, commentaire, note FROM etudiants INNER JOIN stages ON etudiants.eid = stages.eid INNER JOIN notes ON stages.sid = notes.sid WHERE stages.sid =:sid";
+    $stmt = $db->prepare($SQL);
+    $stmt->execute(array(':sid'=> $sid));
+    $res = $stmt -> fetchAll();
+    return $res[0];
+}
+function getMDP($uid){
+    $db = connect_db();
+    $SQL = "SELECT mdp FROM users WHERE uid =:uid";
+    $stmt = $db->prepare($SQL);
+    $stmt->execute(array(':uid'=> $uid));
+    $res = $stmt -> fetchAll();
+    return $res[0];
+}
+function changeMDP($uid,$mdp){
+    $db= connect_db();
+    $SQL="UPDATE users SET mdp= :mdp where uid= :uid";
+    $stmt= $db->prepare($SQL);
+    $stmt->execute(array(':mdp'=> $mdp, ':uid'=> $uid));
+    
+}
+function updateNote($sid,$note,$commentaire){
+    $db= connect_db();
+    $SQL="UPDATE notes SET note= :note, commentaire= :commentaire where sid= :sid";
+    $stmt= $db->prepare($SQL);
+    $stmt->execute(array(':note'=> $note, ':commentaire'=> $commentaire, ':sid'=> $sid));
+}
+function getSID($titre){
+    $db = connect_db();
+    $SQL = "SELECT sid FROM stages WHERE titre =:titre";
+    $stmt = $db->prepare($SQL);
+    $stmt->execute(array(':titre'=> $titre));
+    $res = $stmt -> fetchAll();
+    return $res[0];
+}
     /**
      * Logout
 

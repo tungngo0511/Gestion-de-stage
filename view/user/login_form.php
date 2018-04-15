@@ -10,8 +10,6 @@
 <?php
 $title="Authentification";
 include(__DIR__."/../header.php");
-include(__DIR__."/../../public/libraries/config.php")
-//echo "<p class=\"error\">".($error??"")."</p>";
 ?>
 
     <div class='center'>
@@ -32,8 +30,7 @@ include(__DIR__."/../../public/libraries/config.php")
                             </tr>
                         </table>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary" name="submit" value="submit">Connexion</button>
-                            <span class="pull-right"><a href="<?= $pathFor['adduser'] ?>">S'enregistrer</a></span>
+                            <button type="submit" class="btn btn-primary" name="submit" value="submit">Connexion</button>                          
                         </div>
                     </form>
     </div>

@@ -4,7 +4,7 @@ session_start();
 
 
 if(isset($_POST['submit'])){
-    include (__DIR__."/../../model/user/responsable_model.php");
+    include_once (__DIR__."/../../model/user/responsable_model.php");
     $error = "";
     
     if (empty($_POST['login']) || empty($_POST['password']) )  {
@@ -19,16 +19,16 @@ if(isset($_POST['submit'])){
         } else {
             $_SESSION['login'] = $result['login'];
             $_SESSION['role'] = $result['role'];
-            $_SESSION['uid'] =  $result['uid'];
-            echo "Bonjour ".$_SESSION['login']  ;
-            //require(__DIR__.'/../../index.php');
+            $_SESSION['uid'] =  $result['uid'];       
+       //     include_once(__DIR__.'/../../view/user/tuteur/page_tuteur.php');
+            header("location: /projet/view/user/tuteur/page_tuteur.php");
         }      
     }
 
     if (!empty($error)){
         echo $error;
         header("location: /projet/view/user/login_form.php");
-        exit();
+      //  exit();
     }
 
 
