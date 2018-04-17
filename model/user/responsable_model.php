@@ -222,7 +222,7 @@ function select_stn($stid){
 
 function select_stn_tuteur1($tuteur1){
     $db = connect_db();
-    $SQL = "SELECT * FROM soutenances WHERE tuteur1=:tuteur1";
+    $SQL = "SELECT soutenances.stid, soutenances.sid, titre, commentaire, note FROM soutenances INNER JOIN stages ON soutenances.sid = stages.sid LEFT JOIN notes ON notes.sid = stages.sid WHERE tuteur1=:tuteur1";
     $stmt = $db->prepare($SQL);
     $stmt->execute(array(':tuteur1'=> $tuteur1));
     $res = $stmt -> fetchAll();
@@ -231,7 +231,7 @@ function select_stn_tuteur1($tuteur1){
 
 function select_stn_tuteur2($tuteur2){
     $db = connect_db();
-    $SQL = "SELECT * FROM soutenances WHERE tuteur2=:tuteur2";
+    $SQL = "SELECT soutenances.stid, soutenances.sid, titre, commentaire, note FROM soutenances INNER JOIN stages ON soutenances.sid = stages.sid LEFT JOIN notes ON notes.sid = stages.sid WHERE tuteur2=:tuteur2";
     $stmt = $db->prepare($SQL);
     $stmt->execute(array(':tuteur2'=> $tuteur2));
     $res = $stmt -> fetchAll();
@@ -249,7 +249,7 @@ function etudiant_tuteurP($id_tuteurP) {
 //Récupérer infos pour editer table etudiant per tuteur
 function getinfo_etututeur($sid){
     $db = connect_db();
-    $SQL = "SELECT stages.sid,nom, prenom, titre, commentaire, note FROM etudiants INNER JOIN stages ON etudiants.eid = stages.eid LEFT JOIN notes ON stages.sid = notes.sid WHERE stages.sid =:sid";
+    $SQL = "SELECT soutenances.stid, stages.sid,nom, prenom, titre, commentaire, note FROM etudiants INNER JOIN stages ON etudiants.eid = stages.eid LEFT JOIN notes ON stages.sid = notes.sid INNER JOIN soutenances ON soutenances.sid = stages.sid WHERE stages.sid =:sid";
     $stmt = $db->prepare($SQL);
     $stmt->execute(array(':sid'=> $sid));
     $res = $stmt -> fetchAll();
