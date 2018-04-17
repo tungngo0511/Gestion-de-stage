@@ -1,12 +1,27 @@
+<?php
+ob_start();
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Root page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>PHP MVC</title>
 </head>
 <body>
-<h1>Page principale</h1>
-<p>Aller a <a href="view/home.php">Home</a></p>
-
+<?php
+if(isset($_GET['controller'])){
+	switch($_GET['controller']){
+		case 'etudiant': include_once('controller/etudiant/etudiant.php');
+		break;
+		case 'user': include_once('controller/user/user.php');
+		break;
+	}
+}
+else{
+	header('location: index.php?controller=etudiant&act=list_sou.php');
+}
+?>
+ 
 </body>
-
 </html>

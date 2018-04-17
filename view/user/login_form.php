@@ -1,42 +1,46 @@
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/~u21607562/projet/public/css/style_login_form.css">
+    <link rel="stylesheet" type="text/css" href="/~u21607562/projet/public/css/style_commun.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    <?php
+    session_start();
+    if(isset($_SESSION['login'])){
+    if ($_SESSION['role'] == "admin"){
+    header("location:/~u21607562/projet/view/user/responsable/page_respon.php");
+} else {
+header("location: /~u21607562/projet/view/user/tuteur/page_tuteur.php");
+}
+}
+?>
 <?php
 $title="Authentification";
-include(__DIR__."/../header.php");
-include(__DIR__."/../../public/libraries/config.php")
-//echo "<p class=\"error\">".($error??"")."</p>";
+include(__DIR__."/../header/header_home.php");
 ?>
-
-    <div class='center'>
-        <h2>Authentifiez-vous</h2>
-
-        <form action="/projet/controller/user/login.php" method="post">
-                        <!--legend>Authentifiez-vous</legend-->
-                        <table class="center">
-                            <tr>
-                            <td><label for="inputNom" class="control-label">Login</label></td>
-                            <td><input type="text" name="login" size="20" class="form-control" id="inputLogin" required placeholder="login"
-                                
-                            </tr>
-                            <tr>
-                            <td><label for="inputMDP" class="control-label">MDP</label></td>
-                            <td><input type="password" name="password" size="20" class="form-control" required id="inputMDP"
-                                   placeholder="Mot de passe"></td>
-                            </tr>
-                        </table>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary" name="submit" value="submit">Connexion</button>
-                            <span class="pull-right"><a href="<?= $pathFor['adduser'] ?>">S'enregistrer</a></span>
-                        </div>
-                    </form>
-    </div>
+<body>
+    <section>
+        <div class="login-form">
+            <form action="/~u21607562/projet/controller/user/login.php" method="post">
+                <div class="avatar">
+                    <img src="/~u21607562/projet/public/images/icon.png" width="50" height="50" alt="Avatar">
+                </div>
+                <h2 class="text-center">Authentifiez-vous</h2>   
+                <div class="form-group">
+                    <input type="text" class="form-control" name="login" placeholder="Login" required="required">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+                </div>        
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" name="submit" value="submit">Connexion</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
 <?php
 
 include(__DIR__."/../footer.php");
+?>
+</html>                            
