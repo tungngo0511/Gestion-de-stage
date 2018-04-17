@@ -47,6 +47,7 @@ include(__DIR__."/../../header/header_respon.php");
               <th scope="col">Role</th>
               <th scope="col">Actif</th>
               <th scope="col">Action</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>                           
@@ -54,6 +55,10 @@ include(__DIR__."/../../header/header_respon.php");
             include_once (__DIR__."/../../../model/user/responsable_model.php");
             $mem = list_user();
             foreach ($mem as $row){
+              $actif= "Inactif";
+              if($row['actif']==1){
+                  $actif = "Actif";
+              }
               echo '<tr>';
               echo '<td>'.$row['uid'].'</td>';
               echo '<td>'.$row['nom'].'</td>';
@@ -61,13 +66,16 @@ include(__DIR__."/../../header/header_respon.php");
               echo '<td>'.$row['login'].'</td>';
               echo '<td>'.$row['mdp'].'</td>';
               echo '<td>'.$row['role'].'</td>';
-              echo '<td>'.$row['actif'].'</td>';
+              echo '<td>'.$actif.'</td>';
               echo '<td>
               <a class="btn btn-small btn-primary"
               data-toggle="modal"
               data-target="#User_Modal"
               data-whatever="'.$row['login'].' ">Changer Mdp</a>
               </td>';
+              echo '<td> 
+                <a class="activer" data-id="'.$row['login'].'" href="javascript:void(0)">Activer/Désactiver</a>
+                </td>';
               echo '</tr>';
             }                                              
 
@@ -163,6 +171,24 @@ include(__DIR__."/../../header/header_respon.php");
           });  
         })
       </script>
+      
+      <script>
+        $(document).ready(function(){
+
+         $('.activer').click(function(e){
+          e.preventDefault();
+          var login = $(this).attr('data-id');
+          var parent = $(this).parent("td").parent("tr");
+        $.ajax({
+         type: 'POST',
+         url: '/~u21607562/projet/controller/user/responsable/change_actif.php',
+         data: 'actif='+login
+
+       })
+
+      }
+    }
+     </script>
     </section>
   </body>
 

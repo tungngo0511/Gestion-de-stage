@@ -30,10 +30,10 @@ function checkLogin($login){
 
 function addUser($nom,$prenom,$login,$mdp,$role){
     $db = connect_db();
-   // $actif = 1;
-    $SQL = "INSERT INTO users(nom,prenom,login,mdp,role) VALUES (:nom,:prenom,:login,:mdp,:role)";
+    $actif = b'1';
+    $SQL = "INSERT INTO users(nom,prenom,login,mdp,role,actif) VALUES (:nom,:prenom,:login,:mdp,:role,:actif)";
     $stmt= $db->prepare($SQL);
-    $stmt->execute(array(':nom'=> $nom, ':prenom'=> $prenom, ':login'=> $login, ':mdp'=> $mdp, ':role'=> $role));
+    $stmt->execute(array(':nom'=> $nom, ':prenom'=> $prenom, ':login'=> $login, ':mdp'=> $mdp, ':role'=> $role, ':actif'=> $actif));
 }
 
 function changePw($login,$mdp){
@@ -88,6 +88,24 @@ function get_tuteur($uid){
     return $res[0];
 }
 
+function desactiver($login){
+    $db= connect_db();
+    $SQL="UPDATE users SET actif= b'0' where login= :login";
+    $stmt= $db->prepare($SQL);
+    $stmt->execute(array(':login'=> $login));
+    if ($stmt) {
+     echo "User est désactivé ...";
+ }
+}
+function activer($login){
+    $db= connect_db();
+    $SQL="UPDATE users SET actif= b'1' where login= :login";
+    $stmt= $db->prepare($SQL);
+    $stmt->execute(array(':login'=> $login));
+    if ($stmt) {
+     echo "User est activé ...";
+ }
+}
 function list_stage(){
     $db = connect_db();
     $SQL = "SELECT sid, titre, description, entreprise, tuteurE, emailTE, dateDebut, dateFin, users.nom AS nom_user, users.prenom AS prenom_user

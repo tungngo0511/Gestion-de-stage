@@ -54,7 +54,7 @@ session_start();
                             <a class="btn btn-small btn-primary"
                             data-toggle="modal"
                             data-target="#Modal_tuteur"
-                            data-whatever="'.$row['sid'].' ">Editer</a>
+                            data-whatever="'.$row['sid'].' ">Ajouter Note/Commentaire</a>
                             </td>';
                             echo '</tr>';
                         }                                                                                           
@@ -128,13 +128,21 @@ session_start();
             </thead>
             <tbody>                           
                 <?php                                                            
-                $etu = select_stn_tuteur1($uid_user);
-                foreach ($etu as $row){
+                $res1 = select_stn_tuteur1($uid_user);
+                foreach ($res1 as $row){
                     echo '<tr>';                                 
                     echo '<td>'.$row['stid'].'</td>';
                     echo '<td>'.$row['sid'].'</td>';
                     echo '<td>'.$row['date'].'</td>';
-                    echo '<td>'.$row['salle'].'</td>';                                                                       
+                    echo '<td>'.$row['salle'].'</td>';     
+                    echo '<td>'.$row['note'].'</td>';
+                    echo '<td>'.$row['commentaire'].'</td>';                                   
+                    echo '<td>
+                    <a class="btn btn-small btn-primary"
+                    data-toggle="modal"
+                    data-target="#Modal_SouTuteur"
+                    data-whatever="'.$row['sid'].' ">Ajouter Note/Commentaire</a>
+                    </td>';
                     echo '</tr>';
                 }                                                                                           
                 ?> 
@@ -160,13 +168,21 @@ session_start();
             </thead>
             <tbody>                           
                 <?php                                                            
-                $etu = select_stn_tuteur2($uid_user);
-                foreach ($etu as $row){
+                $res2 = select_stn_tuteur2($uid_user);
+                foreach ($res2 as $row){
                     echo '<tr>';                                 
                     echo '<td>'.$row['stid'].'</td>';
                     echo '<td>'.$row['sid'].'</td>';
                     echo '<td>'.$row['date'].'</td>';
-                    echo '<td>'.$row['salle'].'</td>';                                                                       
+                    echo '<td>'.$row['salle'].'</td>';   
+                    echo '<td>'.$row['note'].'</td>';
+                    echo '<td>'.$row['commentaire'].'</td>';                                   
+                    echo '<td>
+                    <a class="btn btn-small btn-primary"
+                    data-toggle="modal"
+                    data-target="#Modal_SouTuteur"
+                    data-whatever="'.$row['sid'].' ">Ajouter Note/Commentaire</a>
+                    </td>';
                     echo '</tr>';
                 }                                                                                           
                 ?> 
@@ -188,6 +204,28 @@ session_start();
           $.ajax({
             type: "GET",
             url: "edit_tuteur_etu.php",
+            data: dataString,
+            cache: false,
+            success: function (data) {
+                console.log(data);
+                modal.find('.dash').html(data);
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });  
+      })
+  </script>
+  <script>
+    $('#Modal_SouTuteur').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) // Button that triggered the modal
+          var recipient = button.data('whatever') // Extract info from data-* attributes
+          var modal = $(this);
+          var dataString = 'sid=' + recipient;
+
+          $.ajax({
+            type: "GET",
+            url: "edit_sou_tuteur.php",
             data: dataString,
             cache: false,
             success: function (data) {
