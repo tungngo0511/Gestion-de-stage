@@ -106,6 +106,19 @@ session_start();
                      </div>
                  </div>
              </div>
+                    <div class="modal fade" id="Modal_SouTuteur" tabindex="-1" role="dialog" aria-labelledby="tuteurModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+                                <h4 class="modal-title" id="souModalLabel">Edit Form</h4>
+                            </div>
+                            <div class="dash_sou">
+                             <!-- Content goes in here -->
+                         </div>
+                     </div>
+                 </div>
+             </div>
          </tbody>
      </table>
  </div>
@@ -123,7 +136,10 @@ session_start();
                     <th scope="col">Soutenance ID</th>
                     <th scope="col">Stage ID</th>
                     <th scope="col">Date</th>
-                    <th scope="col">Salle</th>                                      
+                    <th scope="col">Salle</th> 
+                    <th scope="col">Note</th> 
+                    <th scope="col">Commentaire</th> 
+                    <th scope="col">Editer</th> 
                 </tr>
             </thead>
             <tbody>                           
@@ -163,7 +179,10 @@ session_start();
                     <th scope="col">Soutenance ID</th>
                     <th scope="col">Stage ID</th>
                     <th scope="col">Date</th>
-                    <th scope="col">Salle</th>                                      
+                    <th scope="col">Salle</th> 
+                    <th scope="col">Note</th> 
+                    <th scope="col">Commentaire</th> 
+                    <th scope="col">Editer</th> 
                 </tr>
             </thead>
             <tbody>                           
@@ -230,7 +249,7 @@ session_start();
             cache: false,
             success: function (data) {
                 console.log(data);
-                modal.find('.dash').html(data);
+                modal.find('.dash_sou').html(data);
             },
             error: function(err) {
                 console.log(err);

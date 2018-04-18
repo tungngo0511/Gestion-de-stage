@@ -11,4 +11,5 @@ include_once (__DIR__."/../../../model/user/responsable_model.php");
               activer($login);
           }	
 	 }
+    header("location: /~u21607562/projet/view/user/responsable/user_table.php");     
 }

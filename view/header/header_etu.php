@@ -11,38 +11,50 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <nav class="navbar navbar-default">
-  <div class="container-fluid">
+    <div class="container-fluid">
 
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="http://www.u-pec.fr/universite-paris-est-creteil-805685.kjsp" target="_blank">
-        <img src="/~u21607562/projet/public/images/UPEC-logo.svg.png" width="80" height="35" alt="UPEC-logo">
-      </a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-       <li><a href="/~u21607562/projet/view/page_home.php"> HOME <span class="glyphicon glyphicon-home"></span></a></li>
-       <li><a href="/~u21607562/projet/view/etudiant/add_etu_view.php">Formulaire inscription</a></li>
-     </ul>
-     <div class ="Chercher">
-       <form class="navbar-form navbar-right" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Références dossier">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://www.u-pec.fr/universite-paris-est-creteil-805685.kjsp" target="_blank">
+                <img src="/~u21607562/projet/public/images/UPEC-logo.svg.png" width="80" height="35" alt="UPEC-logo">
+            </a>
         </div>
-        <button type="submit" class="btn btn-default">Chercher</button>
-      </form>
-    </div>
-  </div><!-- /.navbar-collapse -->
-</div><!-- /.container-fluid -->
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="/~u21607562/projet/view/page_home.php"> HOME <span class="glyphicon glyphicon-home"></span></a></li>
+                <li><a href="/~u21607562/projet/view/etudiant/add_etu_view.php">Formulaire inscription</a></li>
+            </ul>
+            <div class ="Chercher">
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" id="reference" class="form-control" placeholder="Références dossier">
+                    </div>
+                    <button type="submit" id="search_button" class="btn btn-default">Chercher</button>
+                </form>
+            </div>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
 </nav>
+<script>
+    $(document).ready(function () {
+        $("#search_button").click(function () {
+            var reference = document.getElementById('reference');
+            $.ajax({
+                type: 'POST',
+                url: '/~u21607562/projet/view/etudiant/info_etu.php',
+                data: 'reference=' + reference
+            })
+        });
+    });
+</script>
 
 
 

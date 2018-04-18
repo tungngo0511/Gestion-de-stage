@@ -1,10 +1,10 @@
 <?php
 function connect_db(){
 
-    $host = 'localhost'; 
-    $login= 'u21607562'; 
-    $mdp = 'qfMbMJVTcW'; 
-    $dbname = 'u21607562';
+    $host = 'localhost';
+    $login= 'root';
+    $mdp = '';
+    $dbname = '2017_projet6_stages';
     try {
         $db = new PDO("mysql:host=$host;dbname=$dbname", $login, $mdp);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

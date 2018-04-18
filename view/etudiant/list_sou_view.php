@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="/~u21607562/projet/public/css/style_table.css">
 
 <?php  
-require (__DIR__."/../header/header_etu.php");
+include_once (__DIR__."/../header/header_etu.php");
 ?>
 <body>
 	<section>
@@ -51,5 +51,5 @@ require (__DIR__."/../header/header_etu.php");
 	</section>
 </body>
 <?php
-require (__DIR__."/../footer.php");
+include_once (__DIR__."/../footer.php");
 ?>
