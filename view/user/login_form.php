@@ -33,7 +33,7 @@ include(__DIR__."/../header/header_home.php");
                     <input type="password" class="form-control" name="password" placeholder="Password" required="required">
                 </div>        
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" name="submit" value="submit">Connexion</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" name="submit" value="submit">Connecter</button>
                 </div>
             </form>
         </div>

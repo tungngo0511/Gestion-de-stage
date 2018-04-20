@@ -17,15 +17,20 @@ if(isset($_POST['submit'])){
         if (!$result) {
             $error .=  "Utilisateur inexistant !";
         } else {
+            if ($result['actif']==0){
+            $error .=  "Utilisateur est inactif !"; 
+            }
+            else{
             $_SESSION['login'] = $result['login'];
             $_SESSION['role'] = $result['role'];
-            $_SESSION['uid'] =  $result['uid'];       
+            $_SESSION['uid'] =  $result['uid'];              
             if ($_SESSION['role'] == "admin"){
                 header("location:/~u21607562/projet/view/user/responsable/page_respon.php");
             } else {
                 header("location: /~u21607562/projet/view/user/tuteur/page_tuteur.php");
             }
-        }      
+        } 
+        }
     }
 
     if (!empty($error)){

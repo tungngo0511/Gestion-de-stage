@@ -324,7 +324,13 @@ function list_note(){
     return $res;
 }
 
-
+function get_token(){
+    $db = connect();
+    $SQL= "SELECT token FROM gestionnaires";
+    $stmt = $db -> query($SQL);
+    $res = $stmt-> fetchAll();
+    return $res;
+}
 
 
 
